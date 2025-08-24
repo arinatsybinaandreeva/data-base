@@ -1,0 +1,81 @@
+1. Создание таблицы «Персонал»
+CREATE TABLE Персонал (
+ ID_Персонала INT PRIMARY KEY,
+ ФИО VARCHAR(100) NOT NULL,
+ Стаж INT NOT NULL DEFAULT 0
+);
+2. Создание таблицы «Зал»
+CREATE TABLE Зал (
+ ID_Зала INT PRIMARY KEY,
+ Название VARCHAR(100) NOT NULL,
+ Площадь DECIMAL(10,2) NOT NULL
+);
+3. Создание таблицы «Коллекция»
+CREATE TABLE Коллекция (
+ ID_Колекции INT PRIMARY KEY,
+ Название VARCHAR(100) NOT NULL,
+ ДатаСоздания DATE NOT NULL
+);
+4. Создание таблицы «Экспонат»
+CREATE TABLE Экспонат (
+ ID_Экспоната INT PRIMARY KEY,
+ ID_Зала INT NOT NULL,
+ ID_Коллекции INT NOT NULL,
+ Название VARCHAR(150) NOT NULL,
+ Материал VARCHAR(100),
+ Страна VARCHAR(100),
+ Кол_во INT NOT NULL DEFAULT 1,
+ FOREIGN KEY (ID_Зала) REFERENCES Зал(ID_Зала),
+FOREIGN KEY (ID_Коллекции) REFERENCES Коллекция(ID_Колек
+ции)
+);
+5. Создание таблицы «Выставка» CREATE TABLE Выставка (
+ ID_Выставки INT PRIMARY KEY,
+ ID_Персонала INT NOT NULL,
+ ДатаПроведения DATE NOT NULL,
+FOREIGN KEY (ID_Персонала) REFERENCES Персонал(ID_Персона
+ла)
+);
+6. Создание таблицы «Билет» CREATE TABLE Билет (
+ ID_Билета INT PRIMARY KEY,
+ ID_Выставки INT NOT NULL,
+ ТипБилета VARCHAR(50) NOT NULL,
+ ДатаПокупки DATE NOT NULL,
+FOREIGN KEY (ID_Выставки) REFERENCES
+Выставка(ID_Выставки)
+);
+7. Создание таблицы «Экскурсия»
+CREATE TABLE Экскурсия (
+ ID_Экскурсии INT PRIMARY KEY,
+ ID_Персонала INT NOT NULL,
+ ДатаПроведения DATE NOT NULL,
+ FOREIGN KEY (ID_Персонала) REFERENCES Персонал(ID_Персон
+ала)
+);
+8.Создание таблицы «АктПриемаПередачи»
+CREATE TABLE АктПриемаПередачи (
+ ID_Акта INT PRIMARY KEY,
+ ID_Персонала INT NOT NULL,
+ ДатаАкта DATE NOT NULL,
+FOREIGN KEY (ID_Персонала) REFERENCES Персонал(ID_Персона
+ла)
+);
+9. Создание таблицы «РеставрационнаяЗапись»
+CREATE TABLE РеставрационнаяЗапись (
+ ID_Записи INT PRIMARY KEY,
+ ID_Персонала INT NOT NULL,
+ ДатаЗаписи DATE NOT NULL,
+FOREIGN KEY (ID_Персонала) REFERENCES Персонал(ID_Персон
+ала)
+);
+10. Создание таблицы «Экспозиция»
+CREATE TABLE Экспозиция (
+ ID_Выставки INT NOT NULL,
+ ID_Экспоната INT NOT NULL,
+ СтатусПроведения VARCHAR(50) NOT NULL,
+ PRIMARY KEY (ID_Выставки, ID_Экспоната),
+FOREIGN KEY (ID_Выставки) REFERENCES Выставка(ID_Выставк
+и),
+FOREIGN KEY (ID_Экспоната) REFERENCES Экспонат(ID_Экспон
+ата)
+);
